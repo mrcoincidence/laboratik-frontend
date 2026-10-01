@@ -134,6 +134,8 @@ function LaunchCardIllustration() {
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ★モーダルの状態管理
+
   const logoUrl = "https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/logo.png";
   const cultureAmpMvUrl = "https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/platform/mv.jpg";
 
@@ -155,12 +157,12 @@ export default function Home() {
             <Link href="/service" className="hover:text-[#7b3789] transition-colors">Service</Link>
             <Link href="/platform" className="hover:text-[#7b3789] transition-colors">Platform</Link>
             <Link href="/company" className="hover:text-[#7b3789] transition-colors">Company</Link>
-            <Link 
-              href="/company#contact" 
-              className="bg-gradient-to-r from-[#7b3789] to-[#9b49a8] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-[#7b3789]/20 transition-all text-xs font-semibold tracking-wider"
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-[#7b3789] to-[#9b49a8] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-[#7b3789]/20 transition-all text-xs font-semibold tracking-wider cursor-pointer"
             >
               お問い合わせ
-            </Link>
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -178,28 +180,24 @@ export default function Home() {
             <Link href="/service" className="block text-[#2B232A] font-medium tracking-wide">Service</Link>
             <Link href="/platform" className="block text-[#2B232A] font-medium tracking-wide">Platform</Link>
             <Link href="/company" className="block text-[#2B232A] font-medium tracking-wide">Company</Link>
-            <Link 
-              href="/company#contact" 
-              className="block w-full text-center bg-[#7b3789] text-white py-3 rounded-full font-medium tracking-wider text-sm shadow-md"
+            <button 
+              onClick={() => {
+                setIsModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-center bg-[#7b3789] text-white py-3 rounded-full font-medium tracking-wider text-sm shadow-md cursor-pointer"
             >
               お問い合わせ
-            </Link>
+            </button>
           </div>
         )}
       </header>
 
-      {/* 2. Hero Section（100%フルブリード構造で1500px以上でも切れ目なし） */}
+      {/* 2. Hero Section */}
       <section className="w-full pt-32 pb-24 relative overflow-hidden bg-[#FAF8F6]">
-        
-        {/* ★100vw全体に自然拡散する円形フェードオーラ（四角い境界線が完全に消滅） */}
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          {/* 左側テキスト領域を包み込むソフトなパステルグラデーションオーブ */}
           <div className="absolute top-1/2 left-[5%] md:left-[15%] -translate-y-1/2 w-[600px] lg:w-[750px] h-[450px] bg-gradient-to-tr from-[#FDE8EE] via-[#F3E5F5] to-[#E0F7FA] rounded-full blur-[90px] opacity-80" />
-          
-          {/* 右側イラスト領域の補助オーブ */}
           <div className="absolute top-1/3 right-[5%] w-[450px] lg:w-[550px] h-[400px] bg-gradient-to-bl from-[#E0F7FA] via-[#F3E5F5] to-[#FDE8EE] rounded-full blur-[100px] opacity-70" />
-
-          {/* 100%全幅で流れる波線・ドット装飾 */}
           <svg className="w-full h-full absolute inset-0 opacity-40" viewBox="0 0 1440 600" fill="none" preserveAspectRatio="none">
             <path d="M -100 320 Q 350 180 720 300 T 1540 220" stroke="#7b3789" strokeWidth="2.5" strokeDasharray="6 6" />
             <circle cx="12%" cy="18%" r="12" fill="#2ECDDF" opacity="0.6" />
@@ -208,11 +206,8 @@ export default function Home() {
           </svg>
         </div>
 
-        {/* コンテンツ本体（中央寄せ） */}
         <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
-            
-            {/* 左側：コピー＆説明 */}
             <div className="lg:col-span-7">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-rose-200 text-xs font-medium text-[#7b3789] mb-8 shadow-xs backdrop-blur-sm">
                 <Sparkles size={14} className="text-[#2ECDDF]" />
@@ -247,7 +242,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 右側：連動イラスト */}
             <div className="lg:col-span-5">
               <HeroIllustration />
             </div>
@@ -269,7 +263,6 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {/* Card 1 */}
             <div className="bg-white p-8 rounded-3xl border border-rose-100 shadow-xl shadow-rose-950/[0.02] hover:shadow-2xl hover:shadow-rose-950/[0.06] transition-all hover:-translate-y-1 flex flex-col justify-between">
               <div>
                 <EngagementCardIllustration />
@@ -288,7 +281,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Card 2 */}
             <div className="bg-white p-8 rounded-3xl border border-rose-100 shadow-xl shadow-rose-950/[0.02] hover:shadow-2xl hover:shadow-rose-950/[0.06] transition-all hover:-translate-y-1 flex flex-col justify-between">
               <div>
                 <StrategyCardIllustration />
@@ -307,7 +299,6 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Card 3 */}
             <div className="bg-white p-8 rounded-3xl border border-rose-100 shadow-xl shadow-rose-950/[0.02] hover:shadow-2xl hover:shadow-rose-950/[0.06] transition-all hover:-translate-y-1 flex flex-col justify-between">
               <div>
                 <LaunchCardIllustration />
@@ -329,11 +320,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Platform Banner (Culture Amp / 指定画像付きレイアウト) */}
-      <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-br from-[#FFF0F5] via-[#F3E5F5] to-[#E0F7FA] rounded-[2.5rem] p-9 md:p-14 border border-rose-200/60 relative overflow-hidden shadow-xl shadow-rose-950/5">
+      {/* 4. Platform Banner（★全幅グラデーションCTAレイアウトへ一新） */}
+      <section className="w-full py-24 px-6 md:px-10 bg-gradient-to-br from-[#FFF0F5] via-[#F3E5F5] to-[#E0F7FA] border-t border-rose-200/60 shadow-inner relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-10 items-center relative z-10">
-            {/* 左側：テキスト説明 */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-xs font-extrabold tracking-[0.2em] uppercase text-[#7b3789] block">
                 OFFICIAL PARTNER
@@ -361,15 +351,22 @@ export default function Home() {
                 </div>
               </div>
 
-              <Link 
-                href="/platform" 
-                className="inline-flex items-center gap-3 bg-[#7b3789] text-white font-bold px-8 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20"
-              >
-                プラットフォーム詳細を見る <ArrowRight size={16} />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link 
+                  href="/platform" 
+                  className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white font-bold px-8 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20"
+                >
+                  プラットフォーム詳細を見る <ArrowRight size={16} />
+                </Link>
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="inline-flex items-center justify-center gap-2 border border-rose-200 bg-white px-8 py-4 rounded-full text-sm font-bold tracking-wider text-[#2B232A] hover:border-[#2ECDDF] transition-all shadow-xs cursor-pointer"
+                >
+                  無料相談してみる
+                </button>
+              </div>
             </div>
 
-            {/* 右側：指定のCulture Ampビジュアル画像 (mv.jpg) */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative group w-full max-w-md">
                 <div className="absolute -inset-1 bg-gradient-to-r from-[#7b3789] to-[#2ECDDF] rounded-3xl blur-md opacity-30 group-hover:opacity-50 transition duration-500" />
@@ -413,6 +410,62 @@ export default function Home() {
           © {new Date().getFullYear()} Laboratik Inc. All rights reserved.
         </div>
       </footer>
+
+      {/* 6. お問い合わせモーダル (ポップアップフォーム) */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 opacity-100 transition-opacity">
+          <div 
+            className="absolute inset-0 bg-[#2B232A]/50 backdrop-blur-sm" 
+            onClick={() => setIsModalOpen(false)} 
+          />
+          <div className="relative bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-rose-100 animate-in fade-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-6 p-2 bg-[#FAF8F6] rounded-full text-[#6E656B] hover:text-[#7b3789] transition-colors hover:bg-rose-50 cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+            <div className="p-8 sm:p-12">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-extrabold text-[#2B232A] tracking-wide">お問い合わせ・ご相談</h3>
+                <p className="text-[#6E656B] text-sm mt-3">どのようなことでもお気軽にご連絡ください。</p>
+              </div>
+              <form className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-[#2B232A]">会社名 <span className="text-rose-500">*</span></label>
+                    <input type="text" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）株式会社〇〇" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-[#2B232A]">お名前 <span className="text-rose-500">*</span></label>
+                    <input type="text" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）山田 太郎" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-[#2B232A]">メールアドレス <span className="text-rose-500">*</span></label>
+                  <input type="email" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）info@example.com" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-[#2B232A]">お問い合わせ内容 <span className="text-rose-500">*</span></label>
+                  <textarea rows={5} className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white resize-none transition-colors" placeholder="ご質問やご相談内容をご記入ください" />
+                </div>
+                <div className="text-center pt-6 border-t border-rose-100/60">
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      alert("送信が完了しました（※モックアップです）");
+                      setIsModalOpen(false);
+                    }}
+                    className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white font-bold px-12 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20 w-full sm:w-auto cursor-pointer"
+                  >
+                    送信する <ArrowRight size={16} />
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

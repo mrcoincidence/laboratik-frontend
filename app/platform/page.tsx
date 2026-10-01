@@ -17,6 +17,7 @@ import { useState } from "react";
 
 export default function PlatformPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ★モーダル状態管理
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   const logoUrl = "https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/logo.png";
@@ -26,7 +27,6 @@ export default function PlatformPage() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
-  // 導入企業ロゴアセット一覧 (logo-01.jpg 〜 logo-24.jpg)
   const clientLogos = Array.from({ length: 24 }, (_, i) => {
     const num = String(i + 1).padStart(2, "0");
     return `https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/platform/logo-${num}.jpg`;
@@ -47,12 +47,12 @@ export default function PlatformPage() {
             <Link href="/service" className="hover:text-[#7b3789] transition-colors">Service</Link>
             <Link href="/platform" className="text-[#7b3789] font-bold">Platform</Link>
             <Link href="/company" className="hover:text-[#7b3789] transition-colors">Company</Link>
-            <Link 
-              href="/company#contact" 
-              className="bg-gradient-to-r from-[#7b3789] to-[#9b49a8] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-[#7b3789]/20 transition-all text-xs font-semibold tracking-wider"
+            <button 
+              onClick={() => setIsModalOpen(true)}
+              className="bg-gradient-to-r from-[#7b3789] to-[#9b49a8] text-white px-6 py-2.5 rounded-full hover:shadow-lg hover:shadow-[#7b3789]/20 transition-all text-xs font-semibold tracking-wider cursor-pointer"
             >
               お問い合わせ
-            </Link>
+            </button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -70,12 +70,15 @@ export default function PlatformPage() {
             <Link href="/service" className="block text-[#2B232A] font-medium tracking-wide">Service</Link>
             <Link href="/platform" className="block text-[#2B232A] font-medium tracking-wide">Platform</Link>
             <Link href="/company" className="block text-[#2B232A] font-medium tracking-wide">Company</Link>
-            <Link 
-              href="/company#contact" 
-              className="block w-full text-center bg-[#7b3789] text-white py-3 rounded-full font-medium tracking-wider text-sm shadow-md"
+            <button 
+              onClick={() => {
+                setIsModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+              className="block w-full text-center bg-[#7b3789] text-white py-3 rounded-full font-medium tracking-wider text-sm shadow-md cursor-pointer"
             >
               お問い合わせ
-            </Link>
+            </button>
           </div>
         )}
       </header>
@@ -103,12 +106,12 @@ export default function PlatformPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Link 
-                href="/company#contact" 
-                className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white px-8 py-4 rounded-full font-bold text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-lg shadow-[#7b3789]/20"
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white px-8 py-4 rounded-full font-bold text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-lg shadow-[#7b3789]/20 cursor-pointer"
               >
                 無料相談 <ArrowRight size={16} />
-              </Link>
+              </button>
               <a 
                 href={pdfUrl} 
                 target="_blank" 
@@ -121,7 +124,6 @@ export default function PlatformPage() {
             </div>
           </div>
 
-          {/* Hero Visual */}
           <div className="lg:col-span-5 flex justify-center">
             <div className="relative group w-full max-w-md">
               <div className="absolute -inset-1.5 bg-gradient-to-r from-[#7b3789] via-[#E879F9] to-[#2ECDDF] rounded-3xl blur-lg opacity-40 group-hover:opacity-60 transition duration-500" />
@@ -145,7 +147,7 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      {/* 4. Worry Section（★カード背景を白(bg-white)に統一して画像の白背景と同化させる） */}
+      {/* 4. Worry Section */}
       <section className="py-24 bg-white/80 border-b border-rose-100/60 px-6 md:px-10">
         <div className="max-w-7xl mx-auto space-y-16">
           <div className="text-center max-w-2xl mx-auto space-y-3">
@@ -157,8 +159,6 @@ export default function PlatformPage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            
-            {/* Worry 1 */}
             <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="p-8 space-y-4">
                 <h3 className="text-xl font-bold text-[#2B232A] leading-snug">
@@ -177,7 +177,6 @@ export default function PlatformPage() {
               </div>
             </div>
 
-            {/* Worry 2 */}
             <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="p-8 space-y-4">
                 <h3 className="text-xl font-bold text-[#2B232A] leading-snug">
@@ -196,7 +195,6 @@ export default function PlatformPage() {
               </div>
             </div>
 
-            {/* Worry 3 */}
             <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
               <div className="p-8 space-y-4">
                 <h3 className="text-xl font-bold text-[#2B232A] leading-snug">
@@ -214,7 +212,6 @@ export default function PlatformPage() {
                 />
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -222,7 +219,6 @@ export default function PlatformPage() {
       {/* 5. Solution Culture Amp */}
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
         <div className="bg-gradient-to-br from-[#FFF0F5] via-white to-[#F3E5F5]/60 rounded-[2.5rem] p-9 md:p-16 border border-rose-100 grid lg:grid-cols-12 gap-10 items-center shadow-lg shadow-rose-950/5">
-          
           <div className="lg:col-span-7 space-y-6">
             <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#7b3789] block">SOLUTION</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2B232A] leading-tight tracking-wide">
@@ -249,14 +245,12 @@ export default function PlatformPage() {
               />
             </div>
           </div>
-
         </div>
       </section>
 
       {/* 6. Sustainable Companies / Logo Grid */}
       <section className="py-20 bg-white border-y border-rose-100/60 px-6 md:px-10">
         <div className="max-w-7xl mx-auto space-y-12">
-          
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#7b3789] block">GLOBAL TRUST</span>
             <p className="text-lg sm:text-xl font-bold text-[#2B232A]">
@@ -271,11 +265,10 @@ export default function PlatformPage() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
-      {/* 7. Culture Ampで解決できる組織の課題（★カード背景を白(bg-white)に統一して画像の白背景と同化させる） */}
+      {/* 7. Culture Ampで解決できる組織の課題 */}
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto space-y-16">
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <span className="text-xs font-semibold tracking-[0.25em] uppercase text-[#7b3789] block">SOLUTIONS</span>
@@ -286,8 +279,6 @@ export default function PlatformPage() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          
-          {/* Solution Item 1 */}
           <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-xl shadow-rose-950/[0.02] flex flex-col justify-between">
             <div className="p-8">
               <p className="text-sm font-bold text-[#2B232A] leading-relaxed">
@@ -303,7 +294,6 @@ export default function PlatformPage() {
             </div>
           </div>
 
-          {/* Solution Item 2 */}
           <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-xl shadow-rose-950/[0.02] flex flex-col justify-between">
             <div className="p-8">
               <p className="text-sm font-bold text-[#2B232A] leading-relaxed">
@@ -319,7 +309,6 @@ export default function PlatformPage() {
             </div>
           </div>
 
-          {/* Solution Item 3 */}
           <div className="bg-white rounded-3xl border border-rose-100/80 overflow-hidden shadow-xl shadow-rose-950/[0.02] flex flex-col justify-between">
             <div className="p-8">
               <p className="text-sm font-bold text-[#2B232A] leading-relaxed">
@@ -334,17 +323,15 @@ export default function PlatformPage() {
               />
             </div>
           </div>
-
         </div>
 
-        {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-6 pt-4">
-          <Link 
-            href="/company#contact" 
-            className="inline-flex items-center gap-3 bg-[#7b3789] text-white font-bold px-9 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20"
+          <button 
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex items-center gap-3 bg-[#7b3789] text-white font-bold px-9 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20 cursor-pointer"
           >
             無料相談 <ArrowRight size={16} />
-          </Link>
+          </button>
           <a 
             href={pdfUrl} 
             target="_blank" 
@@ -372,8 +359,6 @@ export default function PlatformPage() {
           </div>
 
           <div className="space-y-12">
-            
-            {/* Point 1 */}
             <div className="grid md:grid-cols-12 gap-8 items-center bg-[#FAF8F6] p-8 md:p-12 rounded-3xl border border-rose-100">
               <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
                 <img src="https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/platform/point-01.png" alt="01.はかる" className="w-full max-w-sm h-auto object-contain mix-blend-multiply" />
@@ -393,7 +378,6 @@ export default function PlatformPage() {
               </div>
             </div>
 
-            {/* Point 2 */}
             <div className="grid md:grid-cols-12 gap-8 items-center bg-[#FAF8F6] p-8 md:p-12 rounded-3xl border border-rose-100">
               <div className="md:col-span-7 space-y-4">
                 <span className="text-sm font-extrabold text-[#7b3789] bg-[#F3E5F5] px-4 py-1.5 rounded-full border border-purple-200 inline-block">
@@ -413,7 +397,6 @@ export default function PlatformPage() {
               </div>
             </div>
 
-            {/* Point 3 */}
             <div className="grid md:grid-cols-12 gap-8 items-center bg-[#FAF8F6] p-8 md:p-12 rounded-3xl border border-rose-100">
               <div className="md:col-span-5 order-2 md:order-1 flex justify-center">
                 <img src="https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/platform/point-03.png" alt="03.うごく" className="w-full max-w-sm h-auto object-contain mix-blend-multiply" />
@@ -432,7 +415,6 @@ export default function PlatformPage() {
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -440,7 +422,6 @@ export default function PlatformPage() {
       {/* 9. Impact Section */}
       <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
         <div className="bg-gradient-to-br from-[#FFF0F5] via-[#F3E5F5] to-[#E0F7FA] rounded-[2.5rem] p-9 md:p-16 border border-rose-200/60 text-center shadow-xl shadow-rose-950/5 space-y-10">
-          
           <div className="space-y-3 max-w-3xl mx-auto">
             <span className="text-xs font-extrabold tracking-[0.2em] uppercase text-[#7b3789] block">IMPACT</span>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2B232A] tracking-wide">
@@ -452,7 +433,6 @@ export default function PlatformPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            
             <div className="bg-white/95 p-6 rounded-2xl shadow-xs border border-white space-y-2 text-left">
               <div className="flex items-baseline gap-1 text-[#7b3789]">
                 <span className="text-4xl font-extrabold">+7</span>
@@ -488,7 +468,6 @@ export default function PlatformPage() {
               <h4 className="text-sm font-bold text-[#2B232A]">コスト軽減</h4>
               <p className="text-xs text-[#6E656B]">人事異動コスト・社員欠席・福利厚生の最適化</p>
             </div>
-
           </div>
         </div>
       </section>
@@ -524,7 +503,7 @@ export default function PlatformPage() {
               <div key={idx} className="bg-[#FAF8F6] rounded-2xl border border-rose-100/80 overflow-hidden">
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-6 text-left font-bold text-sm sm:text-base flex items-center justify-between gap-4 text-[#2B232A] hover:text-[#7b3789] transition-colors"
+                  className="w-full p-6 text-left font-bold text-sm sm:text-base flex items-center justify-between gap-4 text-[#2B232A] hover:text-[#7b3789] transition-colors cursor-pointer"
                 >
                   <span className="flex items-center gap-3">
                     <HelpCircle size={18} className="text-[#2ECDDF] shrink-0" />
@@ -543,11 +522,10 @@ export default function PlatformPage() {
         </div>
       </section>
 
-      {/* 11. Bottom CTA Section */}
-      <section className="py-24 px-6 md:px-10 max-w-7xl mx-auto">
-        <div className="bg-gradient-to-br from-[#FFF0F5] via-[#F3E5F5] to-[#E0F7FA] rounded-[2.5rem] p-9 md:p-16 border border-rose-200/60 relative overflow-hidden shadow-xl shadow-rose-950/5">
+      {/* 11. Bottom CTA Section（★全幅グラデーションCTAレイアウトへ一新） */}
+      <section className="w-full py-24 px-6 md:px-10 bg-gradient-to-br from-[#FFF0F5] via-[#F3E5F5] to-[#E0F7FA] border-t border-rose-200/60 shadow-inner relative overflow-hidden">
+        <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-8 items-center relative z-10">
-            
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#2B232A] tracking-wide">
                 お気軽にお問い合わせ下さい
@@ -556,17 +534,17 @@ export default function PlatformPage() {
                 組織エンゲージメントの向上、Culture Ampの導入相談・資料請求など、専門スタッフが丁寧にお答えいたします。
               </p>
               <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
-                <Link 
-                  href="/company#contact" 
-                  className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white font-bold px-9 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20"
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white font-bold px-9 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20 cursor-pointer"
                 >
                   無料相談 <ArrowRight size={16} />
-                </Link>
+                </button>
                 <a 
                   href={pdfUrl} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="inline-flex items-center justify-center gap-2 border border-rose-200 bg-white/90 px-9 py-4 rounded-full text-sm font-bold tracking-wider text-[#2B232A] hover:border-[#2ECDDF] transition-all shadow-xs"
+                  className="inline-flex items-center justify-center gap-2 border border-rose-200 bg-white px-9 py-4 rounded-full text-sm font-bold tracking-wider text-[#2B232A] hover:border-[#2ECDDF] transition-all shadow-xs"
                 >
                   <Download size={16} className="text-[#7b3789]" />
                   資料ダウンロード
@@ -574,7 +552,6 @@ export default function PlatformPage() {
               </div>
             </div>
 
-            {/* フッターイラスト */}
             <div className="lg:col-span-5 flex justify-center">
               <img 
                 src="https://laboratik.com/wp-content/themes/laboratik_wp/assets/images/platform/footer-ill.png" 
@@ -582,7 +559,6 @@ export default function PlatformPage() {
                 className="w-full max-w-sm h-auto object-contain mix-blend-multiply"
               />
             </div>
-
           </div>
         </div>
       </section>
@@ -617,6 +593,61 @@ export default function PlatformPage() {
         </div>
       </footer>
 
+      {/* 13. お問い合わせモーダル (ポップアップフォーム) */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 opacity-100 transition-opacity">
+          <div 
+            className="absolute inset-0 bg-[#2B232A]/50 backdrop-blur-sm" 
+            onClick={() => setIsModalOpen(false)} 
+          />
+          <div className="relative bg-white rounded-[2rem] shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-rose-100 animate-in fade-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-6 right-6 p-2 bg-[#FAF8F6] rounded-full text-[#6E656B] hover:text-[#7b3789] transition-colors hover:bg-rose-50 cursor-pointer"
+            >
+              <X size={20} />
+            </button>
+            <div className="p-8 sm:p-12">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-extrabold text-[#2B232A] tracking-wide">お問い合わせ・ご相談</h3>
+                <p className="text-[#6E656B] text-sm mt-3">どのようなことでもお気軽にご連絡ください。</p>
+              </div>
+              <form className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-[#2B232A]">会社名 <span className="text-rose-500">*</span></label>
+                    <input type="text" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）株式会社〇〇" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-[#2B232A]">お名前 <span className="text-rose-500">*</span></label>
+                    <input type="text" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）山田 太郎" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-[#2B232A]">メールアドレス <span className="text-rose-500">*</span></label>
+                  <input type="email" className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white transition-colors" placeholder="例）info@example.com" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold text-[#2B232A]">お問い合わせ内容 <span className="text-rose-500">*</span></label>
+                  <textarea rows={5} className="w-full bg-[#FAF8F6] border border-rose-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#7b3789] focus:bg-white resize-none transition-colors" placeholder="ご質問やご相談内容をご記入ください" />
+                </div>
+                <div className="text-center pt-6 border-t border-rose-100/60">
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      alert("送信が完了しました（※モックアップです）");
+                      setIsModalOpen(false);
+                    }}
+                    className="inline-flex items-center justify-center gap-3 bg-[#7b3789] text-white font-bold px-12 py-4 rounded-full text-sm tracking-wider hover:bg-[#2B232A] transition-all shadow-md shadow-[#7b3789]/20 w-full sm:w-auto cursor-pointer"
+                  >
+                    送信する <ArrowRight size={16} />
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
